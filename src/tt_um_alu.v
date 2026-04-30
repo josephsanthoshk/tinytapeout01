@@ -10,9 +10,6 @@ module tt_um_alu (
 );
 
 wire [7:0] ui = ui_in;
-reg [7:0] result;
-
-assign uo_out = result;
 
 reg [7:0] A;
 reg [7:0] B;
@@ -21,6 +18,9 @@ reg [7:0] result;
 reg zero;
 reg carry;
 
+assign uo_out = result;
+
+// control signals
 wire loadA   = uio_in[0];
 wire loadB   = uio_in[1];
 wire execute = uio_in[2];
@@ -51,14 +51,14 @@ always @(posedge clk or negedge rst_n) begin
             case(opcode)
 
                 3'b000: begin
-                    temp = A + B;
-                    result <= temp[7:0];
-                    carry <= temp[8];
+                    temp <= A + B;
+                    result <= A + B;
+                    carry <= (A + B) > 8'hFF;
                 end
 
                 3'b001: begin
-                    temp = A - B;
-                    result <= temp[7:0];
+                    temp <= A - B;
+                    result <= A - B;
                     carry <= temp[8];
                 end
 
@@ -94,7 +94,7 @@ always @(posedge clk or negedge rst_n) begin
 
             endcase
 
-            zero <= (temp[7:0] == 8'b0);
+            zero <= (result == 8'b0);
 
         end
 
@@ -103,15 +103,11 @@ always @(posedge clk or negedge rst_n) begin
 end
 
 
-always @(posedge clk)
-    uo <= result;
-
-
 assign uio_out[6] = zero;
 assign uio_out[7] = carry;
 
-assign uio_out[5:0] = 6'b000000;
 
+assign uio_out[5:0] = 6'b000000;
 
 assign uio_oe = 8'b11000000;
 
