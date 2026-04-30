@@ -38,10 +38,10 @@ always @(posedge clk or negedge rst_n) begin
     else if(ena) begin
 
         if(loadA)
-            A <= ui;
+            A <= ui_in;
 
         if(loadB)
-            B <= ui;
+            B <= ui_in;
 
         if(execute) begin
 
@@ -101,7 +101,7 @@ end
 
 
 always @(posedge clk)
-    uo <= result;
+    uo_out <= result;
 
 
 assign uio_out[6] = zero;
