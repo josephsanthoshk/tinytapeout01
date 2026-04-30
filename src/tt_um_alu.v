@@ -1,15 +1,18 @@
 module tt_um_alu (
-    input  wire        clk,
-    input  wire        rst_n,
-    input  wire        ena,
-
-    input  wire [7:0]  ui,        
-    output reg  [7:0]  uo,        
-
-    input  wire [7:0]  uio_in,    
-    output wire [7:0]  uio_out,   
-    output wire [7:0]  uio_oe
+    input  wire [7:0] ui_in,
+    output wire [7:0] uo_out,
+    input  wire [7:0] uio_in,
+    output wire [7:0] uio_out,
+    output wire [7:0] uio_oe,
+    input  wire ena,
+    input  wire clk,
+    input  wire rst_n
 );
+
+wire [7:0] ui = ui_in;
+reg [7:0] result;
+
+assign uo_out = result;
 
 reg [7:0] A;
 reg [7:0] B;
