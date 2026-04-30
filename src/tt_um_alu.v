@@ -3,8 +3,8 @@ module tt_um_alu (
     input  wire        rst_n,
     input  wire        ena,
 
-    input  wire [7:0]  ui,        
-    output reg  [7:0]  uo,        
+    input  wire [7:0]  ui_in,        
+    output reg  [7:0]  uo_out,        
 
     input  wire [7:0]  uio_in,    
     output wire [7:0]  uio_out,   
